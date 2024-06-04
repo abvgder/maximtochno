@@ -13,8 +13,6 @@ namespace maxim1
             Console.WriteLine("Введите строку");
             string stroka = Console.ReadLine();
             Zapis(stroka);
-
-
         }
         static void Zapis(string stroka)
         {
