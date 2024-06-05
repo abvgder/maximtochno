@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace maxim22
+namespace maxim3
 {
     internal class Program
     {
@@ -15,6 +15,7 @@ namespace maxim22
             string stroka = Console.ReadLine();
             if (Regex.IsMatch(stroka, @"^[a-z]+$"))
             {
+                Count(stroka);
                 Zapis(stroka);
             }
             else
@@ -28,6 +29,22 @@ namespace maxim22
                     }
                 }
                 Console.Read();
+            }
+        }
+        static void Count(string st)
+        {
+            string result = new string(st.Distinct().ToArray());
+            for (int i = 0; i < result.Length; i++)
+            {
+                int schet = 0;
+                for (int j = 0; j < st.Length; j++)
+                {
+                    if (result[i] == st[j])
+                    {
+                        schet++;
+                    }
+                }
+                Console.WriteLine("Буква: " + result[i] + " кол-во: " + schet);
             }
         }
 
