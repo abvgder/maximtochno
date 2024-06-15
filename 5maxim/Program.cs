@@ -21,11 +21,16 @@ namespace _5maxim
                 string n = Console.ReadLine();
                 if (n == "1" )
                 {
-                    Quicksort(stroka);
+                    
+                    string itog = Quicksort(stroka);
+                    Console.WriteLine("Отсортированная строчка:" + itog);
+                    Console.Read();
                 }
                 if (n== "2")
                 {
-
+                    string itog = Treesort(stroka);
+                    Console.WriteLine("Отсортированная строчка:" + itog);
+                    Console.Read();
                 }
             }
             else
@@ -41,13 +46,71 @@ namespace _5maxim
                 Console.Read();
             }
         }
-        static void Quicksort(string str)
+        public static string Quicksort(string str)
         {
             char[] charArray = str.ToCharArray();
             Array.Sort(charArray);
-            Console.WriteLine("Отсортированная строчка:" + charArray);
-            Console.Read();
+            return new string(charArray); 
+            
         }
+        public static string Treesort(string str)
+        {
+            // Создаем новое дерево
+            TreeNode root = null;
+
+            // Добавляем каждый символ строки в дерево
+            foreach (char c in str)
+            {
+                root = Insert(root, c);
+            }
+
+            // Обходим дерево в порядке возрастания и собираем отсортированную строку
+            StringBuilder sortedString = new StringBuilder();
+            InOrderTraversal(root, sortedString);
+
+            return sortedString.ToString();
+        }
+        private class TreeNode
+        {
+            public char Value;
+            public TreeNode left;
+            public TreeNode right;
+
+            public TreeNode(char value)
+            {
+                Value = value;
+                left = null;
+                right = null;
+            }
+        }
+        static void InOrderTraversal(TreeNode node, StringBuilder result)
+        {
+            if (node != null)
+            {
+                InOrderTraversal(node.left, result);
+                result.Append(node.Value);
+                InOrderTraversal(node.right, result);
+            }
+        }
+        static TreeNode Insert(TreeNode node, char value)
+        {
+            if (node == null)
+            {
+                return new TreeNode(value);
+            }
+
+            if (value < node.Value)
+            {
+                node.left = Insert(node.left, value);
+            }
+            else if (value > node.Value)
+            {
+                node.right = Insert(node.right, value);
+            }
+
+            return node;
+        }
+
         static string Find(string str)
         {
             string lSub = "";
@@ -101,7 +164,7 @@ namespace _5maxim
 
                 string we = Find(sum);
                 Console.WriteLine("Наибольшая подстрока, начинающаяся и заканчивающаяся на гласную букву: " + we);
-                Console.Read();
+                
             }
             else
             {
@@ -110,7 +173,7 @@ namespace _5maxim
                 Console.WriteLine(sum2);
                 string we2 = Find(sum2);
                 Console.WriteLine("Наибольшая подстрока, начинающаяся и заканчивающаяся на гласную букву: " + we2);
-                Console.Read();
+                
             }
         }
         static string Reverse(string podstroka)
